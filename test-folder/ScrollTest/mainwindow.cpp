@@ -6,6 +6,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    // Set the default size as the "small" option
+    this->setFixedSize(QSize(640, 480));
+
 }
 
 MainWindow::~MainWindow()
