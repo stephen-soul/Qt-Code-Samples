@@ -24,10 +24,14 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    storytext.cpp \
+    gamemessages.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    storytext.h \
+    gamemessages.h
 
 FORMS += \
         mainwindow.ui
