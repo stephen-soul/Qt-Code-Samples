@@ -5,11 +5,11 @@
 #include "gamemessages.h"
 #include "gamestate.h"
 #include "newgame.h"
+#include "images.h"
 #include <QMainWindow>
 #include <QLineEdit>
 #include <QTextEdit>
 #include <QLabel>
-#include <QPixmap>
 
 namespace Ui {
 class MainWindow;
@@ -41,6 +41,8 @@ private:
     gameState state;
     // Make an object for the new game text
     NewGame newGame;
+    // Make an object for the image resource class
+    images gameImages;
     // Make a function to handle the different events
     void handleMainMenuInput(QString typedInput);
 };

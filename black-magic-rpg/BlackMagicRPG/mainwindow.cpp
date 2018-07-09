@@ -10,10 +10,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     console = ui->consoleScreen;
     enemiesPic = ui->enemyPic;
     gamePic = ui->gameStatePic;
-    // Set the paths for the images
-    QPixmap logo (":/images/logoConverted.png");
     // Set the main game logo on game start (From resources)
-    gamePic->setPixmap(logo);
+    gamePic->setPixmap(gameImages.getLogo());
     // Set the default main menu text at start up
     console->append(game.getMainMenu());
 }
@@ -44,8 +42,7 @@ void MainWindow::handleMainMenuInput(QString typedInput) {
         // Start the game
         state.setMainMenuState(false); // We're no longer in the main menu
         console->clear(); // Clear the console since we changed screens
-        QPixmap mainCity (":/images/city.png"); // Set the path for the city image in resources
-        gamePic->setPixmap(mainCity); // Change the game pic to a city
+        gamePic->setPixmap(gameImages.getMainCity()); // Change the game pic to a city
         console->append(newGame.returnIntro()); // Output the intro and ask the user for their name
         state.setCharacterNamingState(true);
     } else if (typedInput == "2" || typedInput == "load") {
