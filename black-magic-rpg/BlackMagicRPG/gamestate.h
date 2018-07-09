@@ -6,16 +6,21 @@ class gameState
 {
 public:
     gameState();
-    void changeMainMenuState();
-    bool getMainMenuState();
-    void changeNewGameState();
-    bool getNewGameState();
-    void changeCharacterNamingState();
-    bool getCharacterNamingState();
-    void changeChapter1State();
-    bool getChapter1State();
+
     bool getCharacterClassState() const;
     void setCharacterClassState(bool value);
+
+    bool getMainMenuState() const;
+    void setMainMenuState(bool value);
+
+    bool getNewGameState() const;
+    void setNewGameState(bool value);
+
+    bool getChapter1State() const;
+    void setChapter1State(bool value);
+
+    bool getCharacterNamingState() const;
+    void setCharacterNamingState(bool value);
 
 private:
     bool mainMenuState;

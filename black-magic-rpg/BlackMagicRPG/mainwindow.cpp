@@ -42,12 +42,12 @@ void MainWindow::on_input_returnPressed() {
 void MainWindow::handleMainMenuInput(QString typedInput) {
     if (typedInput == "1" || typedInput == "new game" || typedInput == "new") {
         // Start the game
-        state.changeMainMenuState(); // We're no longer in the main menu
+        state.setMainMenuState(false); // We're no longer in the main menu
         console->clear(); // Clear the console since we changed screens
         QPixmap mainCity (":/images/city.png"); // Set the path for the city image in resources
         gamePic->setPixmap(mainCity); // Change the game pic to a city
         console->append(newGame.returnIntro()); // Output the intro and ask the user for their name
-        state.changeCharacterNamingState();
+        state.setCharacterNamingState(true);
     } else if (typedInput == "2" || typedInput == "load") {
         // Load the game
         console->append("This is still in development!");
