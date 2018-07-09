@@ -26,12 +26,16 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     storytext.cpp \
-    gamemessages.cpp
+    gamemessages.cpp \
+    gamestate.cpp \
+    newgame.cpp
 
 HEADERS += \
         mainwindow.h \
     storytext.h \
-    gamemessages.h
+    gamemessages.h \
+    gamestate.h \
+    newgame.h
 
 FORMS += \
         mainwindow.ui

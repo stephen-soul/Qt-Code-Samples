@@ -6,6 +6,8 @@ class storyText
 {
 public:
     storyText();
+private:
+
 };
 
 #endif // STORYTEXT_H
