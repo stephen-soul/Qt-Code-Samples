@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>images/logoConverted.png</file>
-        <file>images/city.png</file>
-    </qresource>
-</RCC>
