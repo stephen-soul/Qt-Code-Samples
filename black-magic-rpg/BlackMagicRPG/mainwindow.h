@@ -12,7 +12,6 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -21,6 +20,7 @@ signals:
 private slots:
     void on_input_returnPressed(); // This slot handles enter being pressed
     void appendToConsole(QString text); // This slot appends to console
+    void changeImage(QPixmap image); // This slot changes the current image
 private:
     Ui::MainWindow *ui;
 };

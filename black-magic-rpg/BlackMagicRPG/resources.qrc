@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/city.png</file>
+        <file>images/logoConverted.png</file>
+        <file>font/VCR_OSD_MONO_1.001.ttf</file>
+    </qresource>
+</RCC>

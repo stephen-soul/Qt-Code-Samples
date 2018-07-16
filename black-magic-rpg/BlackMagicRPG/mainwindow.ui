@@ -118,25 +118,6 @@ font: 20pt;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="enemyPic">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>25</y>
-      <width>301</width>
-      <height>281</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QTextEdit" name="consoleScreen">
     <property name="geometry">
      <rect>
