@@ -1,12 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 #include "gameimages.h"
+#include "gameText.h"
 #include <QApplication>
-#include <QString>
 #include <QTimer>
 #include <QWidget>
 #include <QQueue>
-#include <QThread>
 
 class game : public QObject
 {
@@ -26,7 +25,10 @@ public slots:
 private slots:
     void returnImage(const QPixmap &); // Send an image to be displayed
 private:
-    int state;
+    // Make an object for the text
+    gameText text;
+    int state; // Int to track game state
+    int textState; // Int to track text state
     void handleMainMenu(const QString &);
     gameImages images;
     bool running; // Bool for the game loop to run on

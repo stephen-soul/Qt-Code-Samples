@@ -3,5 +3,8 @@
         <file>images/city.png</file>
         <file>images/logoConverted.png</file>
         <file>font/VCR_OSD_MONO_1.001.ttf</file>
+        <file>text/mainmenu.inc</file>
+        <file>text/game.inc</file>
+        <file>text/map.inc</file>
     </qresource>
 </RCC>

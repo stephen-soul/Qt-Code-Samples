@@ -19,7 +19,7 @@ signals:
     void sendInput(const QString &); // Signal for sending input
 private slots:
     void on_input_returnPressed(); // This slot handles enter being pressed
-    void appendToConsole(QString text); // This slot appends to console
+    void appendToConsole(QString gameText); // This slot appends to console
     void changeImage(QPixmap image); // This slot changes the current image
 private:
     Ui::MainWindow *ui;

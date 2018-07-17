@@ -26,12 +26,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     game.cpp \
-    gameimages.cpp
+    gameimages.cpp \
+    gameText.cpp
 
 HEADERS += \
         mainwindow.h \
     game.h \
-    gameimages.h
+    gameimages.h \
+    gameText.h
 
 FORMS += \
         mainwindow.ui
