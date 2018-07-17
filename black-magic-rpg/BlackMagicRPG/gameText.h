@@ -3,6 +3,7 @@
 #include <QString>
 #include <QList>
 #include <QTextStream>
+#include <QMap>
 
 class gameText
 {
@@ -17,7 +18,7 @@ private:
     void initialize();
     QString mainMenuText; // Private QString to store the main menu text
     QList<QString> game; // Private QList to store chapter text <chapter1, chapter2, ..>
-    QList<QString> map; // Private QList to store map text <Area1, Area1Description, Area2, ..>
+    QMap<QString, QString> map; // Private QMap to store map text <Area1, Area1Description, Area2, ..>
     void readMainMenu();
     void readGameText();
 };

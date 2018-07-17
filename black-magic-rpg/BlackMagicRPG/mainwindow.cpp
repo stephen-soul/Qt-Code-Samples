@@ -24,7 +24,7 @@ MainWindow::~MainWindow() {
 // This slot handles enter being pressed
 void MainWindow::on_input_returnPressed() {
     // Make the lowercase text
-    emit sendInput(ui->input->text().toLower());
+    emit sendInput(ui->input->text());
     ui->input->clear();
 }
 

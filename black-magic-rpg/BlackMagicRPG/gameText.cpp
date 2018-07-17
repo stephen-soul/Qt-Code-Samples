@@ -58,8 +58,8 @@ void gameText::readGameText() {
         if (line.contains("@")) {
             pos = lineToCopy.lastIndexOf(QChar('@'));
             game.append(lineToCopy.left(pos));
+            lineToCopy = "";
         }
-        if (line.contains("")) {}
         lineNumber++;
     } while (!in.atEnd());
     textFile.close();

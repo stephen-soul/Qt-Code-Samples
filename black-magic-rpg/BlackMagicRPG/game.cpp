@@ -2,24 +2,10 @@
 #include "mainwindow.h"
 #include <QTimer>
 
-enum gameState {
-    STATE_MAINMENU,
-    STATE_NEWGAME,
-    STATE_NEWGAME_GETNAME1,
-    STATE_NEWGAME_GETNAME2,
-    STATE_NEWGAME_GETCLASS,
-    STATE_GAMEOVER
-};
-
-enum gameTextState {
-    STATE_NEWGAME_TEXT,
-    STATE_NEWGAME_GETNAME_1_TEXT,
-    STATE_NEWGAME_GETNAME_2_TEXT
-};
-
 game::game(QObject *parent) : QObject(parent) {
     state = STATE_MAINMENU;
     textState = STATE_NEWGAME_TEXT;
+    playerName = "";
 }
 
 game::~game() {
@@ -31,8 +17,19 @@ void game::initializeGame() {
 }
 
 void game::acceptInput(const QString &passedInput) {
-    if(!passedInput.isEmpty() && passedInput != "clear")
-        userInput.enqueue(passedInput);
+    if(state == STATE_CHAPTER1_PROCESS_ENTER) {
+        if(passedInput.isEmpty())
+            userInput.enqueue("empty");
+        else
+            userInput.enqueue(passedInput);
+    } else {
+        if(!passedInput.isEmpty() && passedInput != "clear") {
+            if (state != STATE_NEWGAME_GETNAME)
+                userInput.enqueue(passedInput.toLower());
+            else
+                userInput.enqueue(passedInput);
+        }
+    }
     advance();
 }
 
@@ -44,9 +41,19 @@ void game::advance() {
             handleMainMenu(userInput.dequeue());
         }
         break;
-    case STATE_NEWGAME:
+    case STATE_NEWGAME_GETNAME:
         if(!userInput.isEmpty()) {
-
+            handleNewGameNaming(userInput.dequeue());
+        }
+        break;
+    case STATE_NEWGAME_GETCLASS:
+        if(!userInput.isEmpty()) {
+            handleNewGameClass(userInput.dequeue());
+        }
+        break;
+    case STATE_CHAPTER1_PROCESS_ENTER:
+        if(!userInput.isEmpty()) {
+            handleNewGamePart1();
         }
         break;
     default:
@@ -64,6 +71,11 @@ void game::returnImage(const QPixmap &image) {
     emit sendImage(image);
 }
 
+void game::incrementGameAndText() {
+    state++;
+    textState++;
+}
+
 // Function to handle the main menu input
 void game::handleMainMenu(const QString &mainMenuInput) {
     QString inputToSend;
@@ -71,10 +83,47 @@ void game::handleMainMenu(const QString &mainMenuInput) {
         returnInput("clear");
         inputToSend = text.getGame(textState);
         returnImage(images.getNewGameImage());
-        state++;
-    } else if(mainMenuInput == "clear") {
-        inputToSend = "clear";
+        incrementGameAndText();
     }
-    if(inputToSend != "")
-        returnInput(inputToSend);
+    returnInput(inputToSend);
+}
+
+void game::handleNewGameNaming(const QString &nameInput) {
+    playerName = nameInput;
+    returnInput("\n" + text.getGame(textState) + playerName + text.getGame(textState+1));
+    for(int i = 0; i < 2; i++)
+        textState++;
+    returnInput("\n" + text.getGame(textState) + "\n" + text.getGame(textState+1) + "\n" + text.getGame(textState+2) + "\n" + text.getGame(textState+3));
+    for(int i = 0; i < 3; i++)
+        textState++;
+    incrementGameAndText();
+}
+
+void game::handleNewGameClass(const QString &classPicker) {
+    bool classMade = false;
+    if(classPicker == "1") {
+        // If they pick warrior
+        newPlayer = *new player(100, 100, 60, 60, playerName, "Warrior", 10, 3, 0, 5, 5);
+        classMade = true;
+    } else if(classPicker == "2") {
+        // If they pick mage
+        newPlayer = *new player(80, 80, 100, 100, playerName, "Mage", 5, 5, 10, 3, 6);
+        classMade = true;
+    } else if(classPicker == "3") {
+        // If they pick rogue
+        newPlayer = *new player(90, 90, 80, 80, playerName, "Mage", 5, 5, 10, 3, 6);
+        classMade = true;
+    }
+    if(classMade) {
+        returnInput("\n" + text.getGame(textState));
+        incrementGameAndText();
+        returnInput("\n" + text.getGame(textState));
+    }
+    // Now the player class is made
+}
+
+void game::handleNewGamePart1() {
+    // Clear the screen and move the events forward
+    returnInput("clear");
+
 }
