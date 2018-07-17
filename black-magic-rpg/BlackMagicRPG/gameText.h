@@ -12,7 +12,7 @@ public:
     ~gameText();
     QString getMainMenuText() const;
     QString getGame(int line) const;
-    QString getMap(int line) const;
+    QString getMap(QString line) const;
 
 private:
     void initialize();
@@ -21,6 +21,7 @@ private:
     QMap<QString, QString> map; // Private QMap to store map text <Area1, Area1Description, Area2, ..>
     void readMainMenu();
     void readGameText();
+    void readMapText();
 };
 
 #endif // TEXT_H

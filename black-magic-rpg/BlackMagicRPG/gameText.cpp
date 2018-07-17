@@ -15,11 +15,12 @@ void gameText::initialize() {
     // On initialize, start by filling out the main menu
     readMainMenu();
     readGameText();
+    readMapText();
 }
 
-QString gameText::getMap(int line) const
+QString gameText::getMap(QString line) const
 {
-    return map.at(line);
+    return map.key(line); // Return the value of the map
 }
 
 QString gameText::getGame(int line) const
@@ -53,9 +54,9 @@ void gameText::readGameText() {
     int pos;
     do {
         line = in.readLine();
-        if (!line.contains("#"))
+        if (!line.contains(QChar('#')))
             lineToCopy.append(line);
-        if (line.contains("@")) {
+        if (line.contains(QChar('@'))) {
             pos = lineToCopy.lastIndexOf(QChar('@'));
             game.append(lineToCopy.left(pos));
             lineToCopy = "";
@@ -63,4 +64,39 @@ void gameText::readGameText() {
         lineNumber++;
     } while (!in.atEnd());
     textFile.close();
+}
+
+void gameText::readMapText() {
+    // Read from map and stuff into a QMap with value pairs
+    QFile textFile(":/text/map.inc");
+    textFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    QTextStream in(&textFile);
+    QString line;
+    QString lineId;
+    QString lineDescription;
+    QString workingLine;
+    int pos = 0;
+    bool gettingDescription = false;
+    do {
+        line = in.readLine();
+        if (!line.contains(QChar('#')))
+            workingLine.append(line);
+        if (line.contains(QChar('@'))) {
+            pos = workingLine.lastIndexOf(QChar('@'));
+            if(!gettingDescription) {
+                lineId = workingLine.left(pos);
+                gettingDescription = true;
+            }
+            else {
+                lineDescription = workingLine.left(pos);
+                gettingDescription = false;
+            }
+            if (lineId.isEmpty() && lineDescription.isEmpty()) {
+                map.insertMulti(lineId, lineDescription);
+                lineId.clear();
+                lineDescription.clear();
+            }
+            workingLine.clear();
+        }
+    } while (!in.atEnd());
 }
