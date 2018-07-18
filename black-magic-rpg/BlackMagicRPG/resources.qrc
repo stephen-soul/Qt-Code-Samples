@@ -6,5 +6,6 @@
         <file>text/mainmenu.inc</file>
         <file>text/game.inc</file>
         <file>text/map.inc</file>
+        <file>images/logoConverted2.png</file>
     </qresource>
 </RCC>

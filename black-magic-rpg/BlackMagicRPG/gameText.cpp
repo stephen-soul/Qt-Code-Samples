@@ -18,9 +18,14 @@ void gameText::initialize() {
     readMapText();
 }
 
+QString gameText::getMapText(int line) const
+{
+    return mapText.at(line);
+}
+
 QString gameText::getMap(QString line) const
 {
-    return map.key(line); // Return the value of the map
+    return map.value(line); // Return the value of the map
 }
 
 QString gameText::getGame(int line) const
@@ -72,31 +77,45 @@ void gameText::readMapText() {
     textFile.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&textFile);
     QString line;
-    QString lineId;
-    QString lineDescription;
-    QString workingLine;
-    int pos = 0;
-    bool gettingDescription = false;
+    QString lineToCopy;
+    int lineNumber = 0;
+    int pos;
     do {
         line = in.readLine();
         if (!line.contains(QChar('#')))
-            workingLine.append(line);
+            lineToCopy.append(line);
         if (line.contains(QChar('@'))) {
-            pos = workingLine.lastIndexOf(QChar('@'));
-            if(!gettingDescription) {
-                lineId = workingLine.left(pos);
-                gettingDescription = true;
-            }
-            else {
-                lineDescription = workingLine.left(pos);
-                gettingDescription = false;
-            }
-            if (lineId.isEmpty() && lineDescription.isEmpty()) {
-                map.insertMulti(lineId, lineDescription);
-                lineId.clear();
-                lineDescription.clear();
-            }
-            workingLine.clear();
+            pos = lineToCopy.lastIndexOf(QChar('@'));
+            mapText.append(lineToCopy.left(pos));
+            lineToCopy = "";
         }
+        lineNumber++;
     } while (!in.atEnd());
+//    QString lineDescription;
+//    QString workingLine;
+//    int pos = 0;
+//    bool gettingDescription = false;
+//    do {
+//        line = in.readLine();
+//        if (!line.contains(QChar('#')))
+//            workingLine.append(line);
+//        if (line.contains(QChar('@'))) {
+//            pos = workingLine.lastIndexOf(QChar('@'));
+//            if(!gettingDescription) {
+//                lineId = workingLine.left(pos);
+//                gettingDescription = true;
+//            }
+//            else {
+//                lineDescription = workingLine.left(pos);
+//                gettingDescription = false;
+//            }
+//            if (lineId.isEmpty() && lineDescription.isEmpty()) {
+//                map.insertMulti(lineId, lineDescription);
+//                lineId.clear();
+//                lineDescription.clear();
+//            }
+//            workingLine.clear();
+//        }
+//    } while (!in.atEnd());
+    textFile.close();
 }

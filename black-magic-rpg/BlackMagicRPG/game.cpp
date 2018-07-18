@@ -125,5 +125,5 @@ void game::handleNewGameClass(const QString &classPicker) {
 void game::handleNewGamePart1() {
     // Clear the screen and move the events forward
     returnInput("clear");
-
+    returnInput(text.getMapText(1) + "\n" + text.getMapText(3));
 }

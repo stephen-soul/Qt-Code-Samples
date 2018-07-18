@@ -13,12 +13,14 @@ public:
     QString getMainMenuText() const;
     QString getGame(int line) const;
     QString getMap(QString line) const;
+    QString getMapText(int line) const;
 
 private:
     void initialize();
     QString mainMenuText; // Private QString to store the main menu text
     QList<QString> game; // Private QList to store chapter text <chapter1, chapter2, ..>
     QMap<QString, QString> map; // Private QMap to store map text <Area1, Area1Description, Area2, ..>
+    QList<QString> mapText;
     void readMainMenu();
     void readGameText();
     void readMapText();

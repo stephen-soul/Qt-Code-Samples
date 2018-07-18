@@ -1,7 +1,7 @@
 #include "gameimages.h"
 
 gameImages::gameImages() {
-    mainMenuLogo.load(":/images/logoConverted.png"); // Main screen logo
+    mainMenuLogo.load(":/images/logoConverted2.png"); // Main screen logo
     newGameImage.load(":/images/city.png"); // Set the path for the city image in resources
 }
 
