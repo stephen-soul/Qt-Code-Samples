@@ -10,8 +10,7 @@ namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent = nullptr);
@@ -26,7 +25,7 @@ private slots:
     void changeImage(QPixmap image); // This slot changes the current image
 private:
     Ui::MainWindow *ui;
-    bool startSelected;
+    bool startSelected; // Bool to handle main menu placement
 };
 
 #endif // MAINWINDOW_H

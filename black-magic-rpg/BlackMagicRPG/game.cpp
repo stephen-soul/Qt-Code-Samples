@@ -16,6 +16,10 @@ void game::initializeGame() {
     returnInput(text.getMainMenuText());
 }
 
+void game::progressMainMenu(const QString &input) {
+    returnInput(input);
+}
+
 void game::acceptInput(const QString &passedInput) {
     if(state == STATE_CHAPTER1_PROCESS_ENTER) {
         if(passedInput.isEmpty())
@@ -92,10 +96,10 @@ void game::handleNewGameNaming(const QString &nameInput) {
     playerName = nameInput;
     text.appendNameToGameText(playerName);
     returnInput("\n" + text.getGame(textState));
-    textState++;
-    returnInput("\n" + text.getGame(textState) + "\n" + text.getGame(textState+1) + "\n" + text.getGame(textState+2) + "\n" + text.getGame(textState+3));
-    for(int i = 0; i < 3; i++)
-        textState++;
+//    textState++;
+//    returnInput("\n" + text.getGame(textState) + "\n" + text.getGame(textState+1) + "\n" + text.getGame(textState+2) + "\n" + text.getGame(textState+3));
+//    for(int i = 0; i < 3; i++)
+//        textState++;
     incrementGameAndText();
 }
 

@@ -28,14 +28,14 @@ enum gameTextState {
     STATE_NEWGAME_CHAPTER1_S
 };
 
-class game : public QObject
-{
+class game : public QObject {
     Q_OBJECT
 public:
     explicit game(QObject *parent = nullptr);
     virtual ~game();
-    void initializeGame();
+    void initializeGame(); // Function to initialize some values
     bool getRunning() const; // Getter for the game state
+    void progressMainMenu(const QString &);
 signals:
     void sendParsedInput(const QString &); // Signal to send input
     void sendImage(const QPixmap &); // Signal to send image
