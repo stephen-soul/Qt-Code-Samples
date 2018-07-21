@@ -14,7 +14,8 @@ public:
     QString getGame(int line) const;
     QString getMap(QString line) const;
     QString getMapText(int line) const;
-
+    void appendNameToGameText(const QString &);
+    void appendClassToGameText(const QString &);
 private:
     void initialize();
     QString mainMenuText; // Private QString to store the main menu text

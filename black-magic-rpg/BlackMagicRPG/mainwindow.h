@@ -4,6 +4,7 @@
 #include "game.h"
 
 #include <QMainWindow>
+#include <QFontDatabase>
 
 namespace Ui {
 class MainWindow;
@@ -15,6 +16,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+protected:
+    void keyPressEvent(QKeyEvent *event); // Handle the main menu input
 signals:
     void sendInput(const QString &); // Signal for sending input
 private slots:
@@ -23,6 +26,7 @@ private slots:
     void changeImage(QPixmap image); // This slot changes the current image
 private:
     Ui::MainWindow *ui;
+    bool startSelected;
 };
 
 #endif // MAINWINDOW_H

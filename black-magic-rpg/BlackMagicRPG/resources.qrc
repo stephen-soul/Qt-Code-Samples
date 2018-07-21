@@ -7,5 +7,7 @@
         <file>text/game.inc</file>
         <file>text/map.inc</file>
         <file>images/logoConverted2.png</file>
+        <file>text/map.xml</file>
+        <file>font/PxPlus_IBM_MDA.ttf</file>
     </qresource>
 </RCC>

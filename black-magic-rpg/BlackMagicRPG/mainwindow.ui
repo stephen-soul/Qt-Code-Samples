@@ -59,7 +59,7 @@ color: rgb(255, 255, 255);</string>
      <string notr="true">background-color: rgb(0, 0, 0);
 border-color: rgb(255, 255, 255);
 color: rgb(255, 255, 255);
-font: 11pt &quot;VCR OSD Mono&quot;;</string>
+font: 12pt &quot;PxPlus IBM MDA&quot;;</string>
     </property>
     <property name="maxLength">
      <number>20</number>
@@ -103,7 +103,8 @@ font: 11pt &quot;VCR OSD Mono&quot;;</string>
     <property name="styleSheet">
      <string notr="true">color: rgb(255, 255, 255);
 background-color: rgb(0, 0, 0);
-font: 20pt;</string>
+font: 20pt;
+</string>
     </property>
     <property name="text">
      <string>»</string>
@@ -139,7 +140,7 @@ font: 20pt;</string>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(0, 0, 0);
 color: rgb(255, 255, 255);
-font: 11pt &quot;VCR OSD Mono&quot;;</string>
+font: 12pt &quot;PxPlus IBM MDA&quot;;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::NoFrame</enum>
@@ -157,11 +158,49 @@ font: 11pt &quot;VCR OSD Mono&quot;;</string>
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'VCR OSD Mono'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:5px; font-family:'Noto Sans UI';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'PxPlus IBM MDA'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:5px; font-family:'Noto Sans UI'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="textInteractionFlags">
      <set>Qt::NoTextInteraction</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="startLabel">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>330</y>
+      <width>111</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 0, 0);
+border-color: rgb(255, 255, 255);
+color: rgb(255, 255, 255);
+font: 22pt &quot;PxPlus IBM MDA&quot;;</string>
+    </property>
+    <property name="text">
+     <string>START</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="exitLabel">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>400</y>
+      <width>111</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 0, 0);
+border-color: rgb(255, 255, 255);
+color: rgb(255, 255, 255);
+font: 22pt &quot;PxPlus IBM MDA&quot;;</string>
+    </property>
+    <property name="text">
+     <string>EXIT</string>
     </property>
    </widget>
   </widget>

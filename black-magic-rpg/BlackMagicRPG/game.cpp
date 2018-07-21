@@ -90,9 +90,9 @@ void game::handleMainMenu(const QString &mainMenuInput) {
 
 void game::handleNewGameNaming(const QString &nameInput) {
     playerName = nameInput;
-    returnInput("\n" + text.getGame(textState) + playerName + text.getGame(textState+1));
-    for(int i = 0; i < 2; i++)
-        textState++;
+    text.appendNameToGameText(playerName);
+    returnInput("\n" + text.getGame(textState));
+    textState++;
     returnInput("\n" + text.getGame(textState) + "\n" + text.getGame(textState+1) + "\n" + text.getGame(textState+2) + "\n" + text.getGame(textState+3));
     for(int i = 0; i < 3; i++)
         textState++;
@@ -111,7 +111,7 @@ void game::handleNewGameClass(const QString &classPicker) {
         classMade = true;
     } else if(classPicker == "3") {
         // If they pick rogue
-        newPlayer = *new player(90, 90, 80, 80, playerName, "Mage", 5, 5, 10, 3, 6);
+        newPlayer = *new player(90, 90, 80, 80, playerName, "Rogue", 5, 5, 10, 3, 6);
         classMade = true;
     }
     if(classMade) {
@@ -125,5 +125,5 @@ void game::handleNewGameClass(const QString &classPicker) {
 void game::handleNewGamePart1() {
     // Clear the screen and move the events forward
     returnInput("clear");
-    returnInput(text.getMapText(1) + "\n" + text.getMapText(3));
+    returnInput(text.getMap("blkrock-cen") + "\n" + text.getMap("blkrock-cen-desc"));
 }

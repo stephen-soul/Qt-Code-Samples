@@ -28,14 +28,16 @@ SOURCES += \
     game.cpp \
     gameimages.cpp \
     gameText.cpp \
-    player.cpp
+    player.cpp \
+    gameactions.cpp
 
 HEADERS += \
         mainwindow.h \
     game.h \
     gameimages.h \
     gameText.h \
-    player.h
+    player.h \
+    gameactions.h
 
 FORMS += \
         mainwindow.ui

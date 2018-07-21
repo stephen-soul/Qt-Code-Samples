@@ -3,6 +3,7 @@
 #include "gameimages.h"
 #include "gameText.h"
 #include "player.h"
+#include <QKeyEvent>
 #include <QApplication>
 #include <QTimer>
 #include <QWidget>

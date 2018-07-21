@@ -50,72 +50,68 @@ void gameText::readMainMenu() {
 
 void gameText::readGameText() {
     // Read from game.inc and stuff it into a QList like so <chapter1, chapter2, ..>
-    QFile textFile(":/text/game.inc");
+    QFile textFile(":/text/game.inc"); // Text file to open
     textFile.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&textFile);
     QString line;
     QString lineToCopy;
-    int lineNumber = 0;
     int pos;
     do {
         line = in.readLine();
-        if (!line.contains(QChar('#')))
+        if (!line.contains(QChar('#'))) // If comment, don't read
             lineToCopy.append(line);
-        if (line.contains(QChar('@'))) {
+        if (line.isEmpty()) // If empty line, add a line break
+            lineToCopy.append("\n");
+        if (line.contains(QChar('@'))) { // If we're at a @ then we're at the end of the specified text
             pos = lineToCopy.lastIndexOf(QChar('@'));
             game.append(lineToCopy.left(pos));
             lineToCopy = "";
         }
-        lineNumber++;
     } while (!in.atEnd());
     textFile.close();
 }
 
 void gameText::readMapText() {
-    // Read from map and stuff into a QMap with value pairs
+    // Read from map and stuff into a QMap with value pairs <map-1 = 'map1'>, <map-1-desc 'map1description'>
     QFile textFile(":/text/map.inc");
     textFile.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&textFile);
     QString line;
-    QString lineToCopy;
-    int lineNumber = 0;
-    int pos;
+    QString lineId;
+    QString lineDescription;
+    QString workingLine;
+    int pos = 0;
+    bool gettingDescription = false;
     do {
         line = in.readLine();
         if (!line.contains(QChar('#')))
-            lineToCopy.append(line);
+            workingLine.append(line);
         if (line.contains(QChar('@'))) {
-            pos = lineToCopy.lastIndexOf(QChar('@'));
-            mapText.append(lineToCopy.left(pos));
-            lineToCopy = "";
+            pos = workingLine.lastIndexOf(QChar('@'));
+            if(!gettingDescription) {
+                lineId = workingLine.left(pos);
+                gettingDescription = true;
+            }
+            else {
+                lineDescription = workingLine.left(pos);
+                gettingDescription = false;
+            }
+            if (lineId != "" && lineDescription != "") {
+                map.insertMulti(lineId, lineDescription);
+                lineId.clear();
+                lineDescription.clear();
+            }
+            workingLine.clear();
         }
-        lineNumber++;
     } while (!in.atEnd());
-//    QString lineDescription;
-//    QString workingLine;
-//    int pos = 0;
-//    bool gettingDescription = false;
-//    do {
-//        line = in.readLine();
-//        if (!line.contains(QChar('#')))
-//            workingLine.append(line);
-//        if (line.contains(QChar('@'))) {
-//            pos = workingLine.lastIndexOf(QChar('@'));
-//            if(!gettingDescription) {
-//                lineId = workingLine.left(pos);
-//                gettingDescription = true;
-//            }
-//            else {
-//                lineDescription = workingLine.left(pos);
-//                gettingDescription = false;
-//            }
-//            if (lineId.isEmpty() && lineDescription.isEmpty()) {
-//                map.insertMulti(lineId, lineDescription);
-//                lineId.clear();
-//                lineDescription.clear();
-//            }
-//            workingLine.clear();
-//        }
-//    } while (!in.atEnd());
-    textFile.close();
+}
+
+// Change any instance of %n to the players name
+void gameText::appendNameToGameText(const QString &playerName) {
+    game.replaceInStrings("%n", playerName);
+}
+
+// Change any instance of %c to the players class name
+void gameText::appendClassToGameText(const QString &playerClass) {
+    game.replaceInStrings("%c", playerClass);
 }

@@ -1,0 +1,19 @@
+<locations>
+    <map>
+        <coord>0,0</coord>
+        <description>
+        You find yourself In front of you lies a grand gothic cathedral.
+        The town appears to be made of black cobblestone mostly kept in
+        good shape. As good as it could with the horses and people that
+        walk these streets daily, anyway.
+        </description>
+    </map>
+    <map>
+        <coord>0,1</coord>
+        <description>
+        Making your way north you find yourself in front of the cathedral.
+        The grass around the church seems charred and you can hear something
+        coming from inside.
+        </description>
+    </map>
+</locations>
