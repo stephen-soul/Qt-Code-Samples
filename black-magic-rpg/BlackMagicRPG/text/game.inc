@@ -13,9 +13,8 @@ Let's put you in a situation. You're relaxing at home,
  thick iron armor wielding a barbaric axe curved like a
  pickaxe. What would you gravitate towards as a way to
  defend yourself?
- \n
 (1) Warrior (You like to wacky wack)
-\n
+
 (2) Mage (You like to casty cast)
-\n
+
 (3) Rogue (You like to sneaky sneak)@

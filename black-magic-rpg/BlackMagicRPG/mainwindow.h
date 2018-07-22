@@ -26,6 +26,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     bool startSelected; // Bool to handle main menu placement
+    bool gameStarted;
 };
 
 #endif // MAINWINDOW_H

@@ -25,11 +25,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // Apply the font to the console and input
     ui->consoleScreen->setFont(gameFont);
     ui->input->setFont(gameFont);
+    ui->input->setEnabled(false);
     // Colour the 'start' to show that it's selected
     ui->startLabel->setStyleSheet("QLabel { color: yellow; font: 22pt 'Share Tech Mono'; }");
     ui->exitLabel->setStyleSheet("QLabel { color: white; font: 22pt 'Share Tech Mono'; }");
     // Default the selection to start
     startSelected = true;
+    // Default the game started to false
+    gameStarted = false;
     // Initialize on game logic
     gameLogic->initializeGame();
 }
@@ -50,6 +53,8 @@ void MainWindow::on_input_returnPressed() {
 void MainWindow::appendToConsole(QString text) {
     if(text == "clear")
         ui->consoleScreen->clear();
+    else if(text == "quit")
+        QApplication::quit();
     else
         ui->consoleScreen->append(text);
 }
@@ -59,47 +64,53 @@ void MainWindow::changeImage(QPixmap image) {
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
-    switch(event->key()) {
-    case Qt::Key_W:
-    case Qt::Key_Up:
-        if(!startSelected) {
-            startSelected = true;
-            ui->startLabel->setStyleSheet("QLabel { color: yellow; font: 22pt 'Share Tech Mono'; }");
-            ui->exitLabel->setStyleSheet("QLabel { color: white; font: 22pt 'Share Tech Mono'; }");
+    if(!gameStarted) {
+        switch(event->key()) {
+        case Qt::Key_W:
+        case Qt::Key_Up:
+            if(!startSelected) {
+                startSelected = true;
+                ui->startLabel->setStyleSheet("QLabel { color: yellow; font: 22pt 'Share Tech Mono'; }");
+                ui->exitLabel->setStyleSheet("QLabel { color: white; font: 22pt 'Share Tech Mono'; }");
+            }
+            break;
+        case Qt::Key_S:
+        case Qt::Key_Down:
+            if(startSelected) {
+                startSelected = false;
+                ui->startLabel->setStyleSheet("QLabel { color: white; font: 22pt 'Share Tech Mono'; }");
+                ui->exitLabel->setStyleSheet("QLabel { color: yellow; font: 22pt 'Share Tech Mono'; }");
+            }
+            break;
+        case Qt::Key_Enter:
+        case Qt::Key_Return:
+            if(startSelected) {
+                ui->input->setText("1");
+                on_input_returnPressed();
+                ui->startLabel->hide();
+                ui->exitLabel->hide();
+                ui->consoleScreen->show();
+                ui->input->show();
+                ui->chevronLineEdit->show();
+                ui->input->setEnabled(true);
+                // Focus the input
+                ui->input->setFocus();
+                // Set the game started to true so we know we don't need this switch anymore
+                gameStarted = true;
+            }
+            else {
+                // Else the user wants to cancel. Pass the input and close the game.
+                ui->input->setText("2");
+                on_input_returnPressed();
+                ui->startLabel->hide();
+                ui->exitLabel->hide();
+                ui->consoleScreen->show();
+                ui->input->show();
+                ui->chevronLineEdit->show();
+            }
+            break;
+        default:
+            break;
         }
-        break;
-    case Qt::Key_S:
-    case Qt::Key_Down:
-        if(startSelected) {
-            startSelected = false;
-            ui->startLabel->setStyleSheet("QLabel { color: white; font: 22pt 'Share Tech Mono'; }");
-            ui->exitLabel->setStyleSheet("QLabel { color: yellow; font: 22pt 'Share Tech Mono'; }");
-        }
-        break;
-    case Qt::Key_Enter:
-    case Qt::Key_Return:
-        if(startSelected) {
-            ui->input->setText("1");
-            on_input_returnPressed();
-            ui->startLabel->hide();
-            ui->exitLabel->hide();
-            ui->consoleScreen->show();
-            ui->input->show();
-            ui->chevronLineEdit->show();
-            // Focus the input
-            ui->input->setFocus();
-        }
-        else {
-            ui->input->setText("2");
-            on_input_returnPressed();
-            ui->startLabel->hide();
-            ui->exitLabel->hide();
-            ui->consoleScreen->show();
-            ui->input->show();
-            ui->chevronLineEdit->show();
-        }
-        break;
-    default:
-        break;
     }
 }
