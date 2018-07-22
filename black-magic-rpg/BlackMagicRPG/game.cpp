@@ -3,8 +3,8 @@
 #include <QTimer>
 
 game::game(QObject *parent) : QObject(parent) {
-    state = STATE_MAINMENU;
-    textState = STATE_NEWGAME_TEXT;
+    gameState = GAME_STATE_MAINMENU;
+    textState = TEXT_STATE_NEWGAME_TEXT;
     playerName = "";
 }
 
@@ -21,14 +21,14 @@ void game::progressMainMenu(const QString &input) {
 }
 
 void game::acceptInput(const QString &passedInput) {
-    if(state == STATE_CHAPTER1_PROCESS_ENTER) {
+    if(gameState == GAME_STATE_CHAPTER1_PROCESS_ENTER) {
         if(passedInput.isEmpty())
             userInput.enqueue("empty");
         else
             userInput.enqueue(passedInput);
     } else {
         if(!passedInput.isEmpty() && passedInput != "clear") {
-            if (state != STATE_NEWGAME_GETNAME)
+            if (gameState != GAME_STATE_NEWGAME_GETNAME)
                 userInput.enqueue(passedInput.toLower());
             else
                 userInput.enqueue(passedInput);
@@ -39,23 +39,28 @@ void game::acceptInput(const QString &passedInput) {
 
 // This function handles the input and compares it against the current state
 void game::advance() {
-    switch (state) {
-    case STATE_MAINMENU:
+    switch (gameState) {
+    case GAME_STATE_MAINMENU:
         if(!userInput.isEmpty()) {
             handleMainMenu(userInput.dequeue());
         }
         break;
-    case STATE_NEWGAME_GETNAME:
+    case GAME_STATE_NEWGAME_GETNAME:
         if(!userInput.isEmpty()) {
             handleNewGameNaming(userInput.dequeue());
         }
         break;
-    case STATE_NEWGAME_GETCLASS:
+    case GAME_STATE_NEWGAME_GETCLASS:
         if(!userInput.isEmpty()) {
             handleNewGameClass(userInput.dequeue());
         }
         break;
-    case STATE_CHAPTER1_PROCESS_ENTER:
+    case GAME_STATE_NEWGAME_CONFIRMATION:
+        if(!userInput.isEmpty()) {
+            handleConfirmingNameAndClass(userInput.dequeue());
+        }
+        break;
+    case GAME_STATE_CHAPTER1_PROCESS_ENTER:
         if(!userInput.isEmpty()) {
             handleNewGamePart1();
         }
@@ -76,7 +81,7 @@ void game::returnImage(const QPixmap &image) {
 }
 
 void game::incrementGameAndText() {
-    state++;
+    gameState++;
     textState++;
 }
 
@@ -85,9 +90,10 @@ void game::handleMainMenu(const QString &mainMenuInput) {
     QString inputToSend;
     if(mainMenuInput == "1") {
         returnInput("clear");
-        inputToSend = text.getGame(textState);
+        inputToSend = text.getGameText(textState);
         returnImage(images.getNewGameImage());
-        incrementGameAndText();
+        gameState = GAME_STATE_NEWGAME_GETNAME;
+        textState = TEXT_STATE_NEWGAME_NAMING;
     }
     if(mainMenuInput == "2")
         inputToSend = "quit";
@@ -97,36 +103,69 @@ void game::handleMainMenu(const QString &mainMenuInput) {
 void game::handleNewGameNaming(const QString &nameInput) {
     playerName = nameInput;
     text.appendNameToGameText(playerName);
-    returnInput("\n" + text.getGame(textState));
-//    textState++;
-//    returnInput("\n" + text.getGame(textState) + "\n" + text.getGame(textState+1) + "\n" + text.getGame(textState+2) + "\n" + text.getGame(textState+3));
-//    for(int i = 0; i < 3; i++)
-//        textState++;
-    incrementGameAndText();
-    returnInput("\n" + text.getGame(textState));
+    returnInput("\n" + text.getGameText(textState));
+    gameState = GAME_STATE_NEWGAME_GETCLASS;
+    textState = TEXT_STATE_NEWGAME_CLASS;
+    returnInput("\n" + text.getGameText(textState));
 }
 
 void game::handleNewGameClass(const QString &classPicker) {
+    int classNumber = 0;
+    QRegularExpression inputCheck("^[1-3]*");
     bool classMade = false;
-    if(classPicker == "1") {
-        // If they pick warrior
-        newPlayer = *new player(100, 100, 60, 60, playerName, "Warrior", 10, 3, 0, 5, 5);
-        classMade = true;
-    } else if(classPicker == "2") {
-        // If they pick mage
-        newPlayer = *new player(80, 80, 100, 100, playerName, "Mage", 5, 5, 10, 3, 6);
-        classMade = true;
-    } else if(classPicker == "3") {
-        // If they pick rogue
-        newPlayer = *new player(90, 90, 80, 80, playerName, "Rogue", 5, 5, 10, 3, 6);
-        classMade = true;
+    if(classPicker.contains(inputCheck)) {
+        classNumber = classPicker.toInt();
+        switch(classNumber) {
+        case 1:
+            playerClass = "warrior";
+            text.appendClassToGameText(playerClass);
+            classMade = true;
+            break;
+        case 2:
+            playerClass = "mage";
+            text.appendClassToGameText(playerClass);
+            classMade = true;
+            break;
+        case 3:
+            playerClass = "rogue";
+            text.appendClassToGameText(playerClass);
+            classMade = true;
+        }
+        if(classMade) {
+            gameState = GAME_STATE_NEWGAME_CONFIRMATION;
+            textState = TEXT_STATE_NEWGAME_CONFIRMATION;
+            returnInput(text.getGameText(textState));
+        }
     }
-    if(classMade) {
-        returnInput("\n" + text.getGame(textState));
-        incrementGameAndText();
-        returnInput("\n" + text.getGame(textState));
+}
+
+void game::handleConfirmingNameAndClass(const QString &input) {
+    QRegularExpression inputCheck("^[1-3]*");
+    if(input.contains(inputCheck)) {
+        int choice = input.toInt();
+        switch(choice) {
+        case 1: // If 1 (yes) then continue
+            gameState = GAME_STATE_CHAPTER1;
+            textState = TEXT_STATE_NEWGAME_CHAPTER1_INTRO;
+            if(playerClass == "warrior")
+                newPlayer = *new player(100, 100, 60, 60, playerName, playerClass, 10, 3, 1, 6, 5);
+            if(playerClass == "mage")
+                newPlayer = *new player(60, 60, 100, 100, playerName, playerClass, 1, 3, 10, 3, 6);
+            if(playerClass == "rogue")
+                newPlayer = *new player(80, 80, 60, 60, playerName, playerClass, 3, 10, 1, 5, 10);
+            // Now the player class is made
+            break;
+        case 2: // If 2 (no) then go back
+            returnInput("clear");
+            gameState = GAME_STATE_NEWGAME_GETNAME;
+            textState = TEXT_STATE_NEWGAME_TEXT;
+            text.resetNameInGameText(playerName);
+            text.resetClassInGameText(playerClass);
+            playerName.clear();
+            break;
+        }
+        returnInput(text.getGameText(textState));
     }
-    // Now the player class is made
 }
 
 void game::handleNewGamePart1() {

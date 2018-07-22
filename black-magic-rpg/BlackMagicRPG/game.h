@@ -8,24 +8,24 @@
 #include <QTimer>
 #include <QWidget>
 #include <QQueue>
+#include <QRegularExpression>
 
 enum gameState {
-    STATE_MAINMENU,
-    STATE_NEWGAME_GETNAME,
-    STATE_NEWGAME_GETCLASS,
-    STATE_CHAPTER1_PROCESS_ENTER,
-    STATE_CHAPTER1_PART1,
-    STATE_GAMEOVER
+    GAME_STATE_MAINMENU,
+    GAME_STATE_NEWGAME_GETNAME,
+    GAME_STATE_NEWGAME_GETCLASS,
+    GAME_STATE_NEWGAME_CONFIRMATION,
+    GAME_STATE_CHAPTER1_PROCESS_ENTER,
+    GAME_STATE_CHAPTER1,
+    GAME_STATE_GAMEOVER
 };
 
 enum gameTextState {
-    STATE_NEWGAME_TEXT,
-    STATE_NEWGAME_GETNAME_1_TEXT,
-    STATE_NEWGAME_GETNAME_2_TEXT,
-    STATE_NEWGAME_GETCLASS_WARRIOR,
-    STATE_NEWGAME_GETCLASS_MAGE,
-    STATE_NEWGAME_GETCLASS_ROGUE,
-    STATE_NEWGAME_CHAPTER1_S
+    TEXT_STATE_NEWGAME_TEXT,
+    TEXT_STATE_NEWGAME_NAMING,
+    TEXT_STATE_NEWGAME_CLASS,
+    TEXT_STATE_NEWGAME_CONFIRMATION,
+    TEXT_STATE_NEWGAME_CHAPTER1_INTRO
 };
 
 class game : public QObject {
@@ -50,15 +50,17 @@ private:
     gameText text;
     // Make an object for player
     player newPlayer;
-    int state; // Int to track game state
+    int gameState; // Int to track game state
     int textState; // Int to track text state
     void incrementGameAndText(); // Function to increment the state
-    // Make a value for the player name
+    // Make a value for the player name and class
     QString playerName;
+    QString playerClass;
     // Functions for handling different things
     void handleMainMenu(const QString &); // Handle the main menu
     void handleNewGameNaming(const QString &); // Handle the naming part of a new game
     void handleNewGameClass(const QString &); // Handle the class part of a new game & make player
+    void handleConfirmingNameAndClass(const QString &); // Handle confirmation
     void handleNewGamePart1(); // Clear the screen and advance the game
     gameImages images;
     bool running; // Bool for the game loop to run on

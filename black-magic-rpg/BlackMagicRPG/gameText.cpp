@@ -12,7 +12,7 @@ gameText::~gameText() {
 }
 
 void gameText::initialize() {
-    // On initialize, start by filling out the main menu
+    // On initialize, start by filling the main menu, game text and map text
     readMainMenu();
     readGameText();
     readMapText();
@@ -28,7 +28,7 @@ QString gameText::getMap(QString line) const
     return map.value(line); // Return the value of the map
 }
 
-QString gameText::getGame(int line) const
+QString gameText::getGameText(int line) const
 {
     return game.at(line);
 }
@@ -111,7 +111,17 @@ void gameText::appendNameToGameText(const QString &playerName) {
     game.replaceInStrings("%n", playerName);
 }
 
+// Reset the name in the game text (if the user changes their mind)
+void gameText::resetNameInGameText(const QString &playerName) {
+    game.replaceInStrings(playerName, "%n");
+}
+
 // Change any instance of %c to the players class name
 void gameText::appendClassToGameText(const QString &playerClass) {
     game.replaceInStrings("%c", playerClass);
+}
+
+// Reset the class in the game text (if the user changes their mind)
+void gameText::resetClassInGameText(const QString &playerClass) {
+    game.replaceInStrings(playerClass, "%c");
 }
