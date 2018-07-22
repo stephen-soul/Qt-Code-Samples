@@ -5,7 +5,11 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     // Remove resizability
-    this->setFixedSize(QSize(640,480));
+    setFixedSize(QSize(640,480));
+    setWindowFlags(Qt::WindowMinimizeButtonHint
+            | Qt::WindowCloseButtonHint
+            | Qt::CustomizeWindowHint);
+    // Declare the new game logic for connecting signals and slots
     game *gameLogic = new game();
     // Handle connecting the input and console to the game logic class
     connect(this, &MainWindow::sendInput, gameLogic, &game::acceptInput);
@@ -16,14 +20,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->input->hide();
     ui->chevronLineEdit->hide();
     // Set the fonts to variables
-    QFontDatabase::addApplicationFont(":/font/PxPlus_IBM_MDA.ttf");
-    QFont gameFont = QFont("PxPlus IBM MDA", 11, 1);
+    QFontDatabase::addApplicationFont(":/font/:/font/ShareTechMono-Regular.ttf");
+    QFont gameFont = QFont("Share Tech Mono", 11, 1);
     // Apply the font to the console and input
     ui->consoleScreen->setFont(gameFont);
     ui->input->setFont(gameFont);
     // Colour the 'start' to show that it's selected
-    ui->startLabel->setStyleSheet("QLabel { color: yellow; font: 22pt 'PxPlus IBM MDA'; }");
-    ui->exitLabel->setStyleSheet("QLabel { color: white; font: 22pt 'PxPlus IBM MDA'; }");
+    ui->startLabel->setStyleSheet("QLabel { color: yellow; font: 22pt 'Share Tech Mono'; }");
+    ui->exitLabel->setStyleSheet("QLabel { color: white; font: 22pt 'Share Tech Mono'; }");
     // Default the selection to start
     startSelected = true;
     // Initialize on game logic
@@ -60,16 +64,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     case Qt::Key_Up:
         if(!startSelected) {
             startSelected = true;
-            ui->startLabel->setStyleSheet("QLabel { color: yellow; font: 22pt 'PxPlus IBM MDA'; }");
-            ui->exitLabel->setStyleSheet("QLabel { color: white; font: 22pt 'PxPlus IBM MDA'; }");
+            ui->startLabel->setStyleSheet("QLabel { color: yellow; font: 22pt 'Share Tech Mono'; }");
+            ui->exitLabel->setStyleSheet("QLabel { color: white; font: 22pt 'Share Tech Mono'; }");
         }
         break;
     case Qt::Key_S:
     case Qt::Key_Down:
         if(startSelected) {
             startSelected = false;
-            ui->startLabel->setStyleSheet("QLabel { color: white; font: 22pt 'PxPlus IBM MDA'; }");
-            ui->exitLabel->setStyleSheet("QLabel { color: yellow; font: 22pt 'PxPlus IBM MDA'; }");
+            ui->startLabel->setStyleSheet("QLabel { color: white; font: 22pt 'Share Tech Mono'; }");
+            ui->exitLabel->setStyleSheet("QLabel { color: yellow; font: 22pt 'Share Tech Mono'; }");
         }
         break;
     case Qt::Key_Enter:
@@ -83,7 +87,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
             ui->input->show();
             ui->chevronLineEdit->show();
             // Focus the input
-            QTimer::singleShot(0, ui->input, SLOT(setFocus()));
+            ui->input->setFocus();
         }
         else {
             ui->input->setText("2");

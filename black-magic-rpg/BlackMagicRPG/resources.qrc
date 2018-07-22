@@ -9,5 +9,6 @@
         <file>images/logoConverted2.png</file>
         <file>text/map.xml</file>
         <file>font/PxPlus_IBM_MDA.ttf</file>
+        <file>font/ShareTechMono-Regular.ttf</file>
     </qresource>
 </RCC>

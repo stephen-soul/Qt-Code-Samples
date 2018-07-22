@@ -87,7 +87,8 @@ void game::handleMainMenu(const QString &mainMenuInput) {
         returnInput("clear");
         inputToSend = text.getGame(textState);
         returnImage(images.getNewGameImage());
-        incrementGameAndText();
+        state = STATE_NEWGAME_GETNAME;
+        textState = 1;
     }
     returnInput(inputToSend);
 }
@@ -100,7 +101,8 @@ void game::handleNewGameNaming(const QString &nameInput) {
 //    returnInput("\n" + text.getGame(textState) + "\n" + text.getGame(textState+1) + "\n" + text.getGame(textState+2) + "\n" + text.getGame(textState+3));
 //    for(int i = 0; i < 3; i++)
 //        textState++;
-    incrementGameAndText();
+    state = STATE_NEWGAME_GETCLASS;
+    textState = 2;
 }
 
 void game::handleNewGameClass(const QString &classPicker) {
