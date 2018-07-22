@@ -24,9 +24,9 @@ private slots:
     void appendToConsole(QString gameText); // This slot appends to console
     void changeImage(QPixmap image); // This slot changes the current image
 private:
-    Ui::MainWindow *ui;
     bool startSelected; // Bool to handle main menu placement
-    bool gameStarted;
+    bool gameStarted; // Bool to handle checking for gui key press events
+    Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H

@@ -34,8 +34,6 @@ public:
     explicit game(QObject *parent = nullptr);
     virtual ~game();
     void initializeGame(); // Function to initialize some values
-    bool getRunning() const; // Getter for the game state
-    void progressMainMenu(const QString &);
 signals:
     void sendParsedInput(const QString &); // Signal to send input
     void sendImage(const QPixmap &); // Signal to send image
@@ -46,24 +44,19 @@ public slots:
 private slots:
     void returnImage(const QPixmap &); // Send an image to be displayed
 private:
-    // Make an object for the text
-    gameText text;
-    // Make an object for player
-    player newPlayer;
+    gameText text; // Make an object for the text
+    player newPlayer; // Make an object for player
+    gameImages images; // Make an object for the game images
     int gameState; // Int to track game state
     int textState; // Int to track text state
-    // Make a value for the player name and class
-    QString playerName;
-    QString playerClass;
-    // Functions for handling different things
-    void handleMainMenu(const QString &); // Handle the main menu
-    void handleNewGameNaming(const QString &); // Handle the naming part of a new game
-    void handleNewGameClass(const QString &); // Handle the class part of a new game & make player
-    void handleConfirmingNameAndClass(const QString &); // Handle confirmation
-    void handleNewGamePart1(); // Clear the screen and advance the game
-    gameImages images;
-    bool running; // Bool for the game loop to run on
-    QQueue<QString> userInput;
+    QString playerName; // QString for the player name
+    QString playerClass; // QString for the player class
+    QQueue<QString> userInput; // QQueue for the user input (in case we move to a game loop)
+    void handleMainMenu(const QString &); // Function to handle the main menu
+    void handleNewGameNaming(const QString &); // Function to handle the naming part of a new game
+    void handleNewGameClass(const QString &); // Function to handle the class part of a new game & make player
+    void handleConfirmingNameAndClass(const QString &); // Function to handle confirmation
+    void handleNewGamePart1(); // Function to clear the screen and advance the game
 };
 
 #endif // GAME_H

@@ -1,6 +1,5 @@
 #include "game.h"
 #include "mainwindow.h"
-#include <QTimer>
 
 game::game(QObject *parent) : QObject(parent) {
     gameState = GAME_STATE_MAINMENU;
@@ -8,18 +7,16 @@ game::game(QObject *parent) : QObject(parent) {
     playerName = "";
 }
 
-game::~game() {
-}
+// Moving the destructor to default until we can include something to do during destructing
+game::~game()=default;
 
+// Constructor
 void game::initializeGame() {
     returnImage(images.getMainMenuLogo());
     returnInput(text.getMainMenuText());
 }
 
-void game::progressMainMenu(const QString &input) {
-    returnInput(input);
-}
-
+// This function handles taking the input from the gui and sending it to advance()
 void game::acceptInput(const QString &passedInput) {
     if(gameState == GAME_STATE_CHAPTER1_PROCESS_ENTER) {
         if(passedInput.isEmpty())
@@ -80,11 +77,6 @@ void game::returnImage(const QPixmap &image) {
     emit sendImage(image);
 }
 
-void game::incrementGameAndText() {
-    gameState++;
-    textState++;
-}
-
 // Function to handle the main menu input
 void game::handleMainMenu(const QString &mainMenuInput) {
     QString inputToSend;
@@ -141,7 +133,7 @@ void game::handleNewGameClass(const QString &classPicker) {
     }
 }
 
-// Function to handle confirmation. If
+// Function to handle confirmation If 1 continue else
 void game::handleConfirmingNameAndClass(const QString &input) {
     QRegularExpression inputCheck("^[1-3]*");
     if(input.contains(inputCheck)) {
@@ -167,6 +159,7 @@ void game::handleConfirmingNameAndClass(const QString &input) {
             playerName.clear();
             break;
         }
+        // Afterwards return the input and advance the game state
         returnInput(text.getGameText(textState));
         gameState = GAME_STATE_CHAPTER1_PROCESS_ENTER;
     }
