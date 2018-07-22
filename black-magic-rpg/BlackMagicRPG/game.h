@@ -52,7 +52,6 @@ private:
     player newPlayer;
     int gameState; // Int to track game state
     int textState; // Int to track text state
-    void incrementGameAndText(); // Function to increment the state
     // Make a value for the player name and class
     QString playerName;
     QString playerClass;
