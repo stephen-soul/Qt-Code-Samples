@@ -34,4 +34,7 @@ You are going to find yourself in the town of Blackrock.
  emerald green eyes. She's got quite the mouth, too.
  I'm going to entrust you with some gold. Please make
  sure you find her upon your arrival. She will help you
- find me. I'll see you soon %n.@
+ find me. I'll see you soon %n.
+
+
+PRESS ENTER TO CONTINUE@

@@ -100,6 +100,7 @@ void game::handleMainMenu(const QString &mainMenuInput) {
     returnInput(inputToSend);
 }
 
+// Function to handle naming your character
 void game::handleNewGameNaming(const QString &nameInput) {
     playerName = nameInput;
     text.appendNameToGameText(playerName);
@@ -109,6 +110,7 @@ void game::handleNewGameNaming(const QString &nameInput) {
     returnInput("\n" + text.getGameText(textState));
 }
 
+// Function to handle picking your class
 void game::handleNewGameClass(const QString &classPicker) {
     int classNumber = 0;
     QRegularExpression inputCheck("^[1-3]*");
@@ -139,6 +141,7 @@ void game::handleNewGameClass(const QString &classPicker) {
     }
 }
 
+// Function to handle confirmation. If
 void game::handleConfirmingNameAndClass(const QString &input) {
     QRegularExpression inputCheck("^[1-3]*");
     if(input.contains(inputCheck)) {
@@ -165,6 +168,7 @@ void game::handleConfirmingNameAndClass(const QString &input) {
             break;
         }
         returnInput(text.getGameText(textState));
+        gameState = GAME_STATE_CHAPTER1_PROCESS_ENTER;
     }
 }
 
