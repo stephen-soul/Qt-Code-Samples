@@ -140,7 +140,6 @@ void game::handleConfirmingNameAndClass(const QString &input) {
         int choice = input.toInt();
         switch(choice) {
         case 1: // If 1 (yes) then continue
-            gameState = GAME_STATE_CHAPTER1;
             textState = TEXT_STATE_NEWGAME_CHAPTER1_INTRO;
             if(playerClass == "warrior")
                 newPlayer = *new player(100, 100, 60, 60, playerName, playerClass, 10, 3, 1, 6, 5);
@@ -149,6 +148,7 @@ void game::handleConfirmingNameAndClass(const QString &input) {
             if(playerClass == "rogue")
                 newPlayer = *new player(80, 80, 60, 60, playerName, playerClass, 3, 10, 1, 5, 10);
             // Now the player class is made
+            gameState = GAME_STATE_CHAPTER1_PROCESS_ENTER;
             break;
         case 2: // If 2 (no) then go back
             returnInput("clear");
@@ -161,7 +161,6 @@ void game::handleConfirmingNameAndClass(const QString &input) {
         }
         // Afterwards return the input and advance the game state
         returnInput(text.getGameText(textState));
-        gameState = GAME_STATE_CHAPTER1_PROCESS_ENTER;
     }
 }
 
