@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->input->hide();
     ui->chevronLineEdit->hide();
     // Set the fonts to variables
-    QFontDatabase::addApplicationFont(":/font/:/font/ShareTechMono-Regular.ttf");
+    QFontDatabase::addApplicationFont(":/font/ShareTechMono-Regular.ttf");
     QFont gameFont = QFont("Share Tech Mono", 11, 1);
     // Apply the font to the console and input
     ui->consoleScreen->setFont(gameFont);
