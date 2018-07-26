@@ -1,7 +1,7 @@
 #include "player.h"
 
 player::player() {
-
+    gold = 0;
 }
 
 player::player(int playerHP, int playerMaxHP, int playerMP, int playerMaxMP, QString playerName, QString playerRole, int playerStr, int playerDex, int playerMagic, int playerDefence, int playerLuck, int playerGold) {
@@ -117,6 +117,16 @@ int player::getGold() const
 void player::setGold(int value)
 {
     gold = value;
+}
+
+void player::addGold(int value)
+{
+    gold += value;
+}
+
+void player::removeGold(int value)
+{
+    gold -= value;
 }
 
 int player::getMp() const

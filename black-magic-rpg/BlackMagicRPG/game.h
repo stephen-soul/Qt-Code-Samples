@@ -46,9 +46,9 @@ public slots:
     void acceptInput(const QString &); // Get the input from the gui
     void returnInput(const QString &); // Send the input to the gui
     void returnName(const QString &name); // Send the name to the gui
-    void returnHealth(int &health, int &maxHealth); // Send the health to the gui
-    void returnMagic(int &mp, int &maxMp); // Send the magic to the gui
-    void returnGold(int &gold); // Send the gold to the gui
+    void returnHealth(int health, int maxHealth); // Send the health to the gui
+    void returnMagic(int mp, int maxMp); // Send the magic to the gui
+    void returnGold(int gold); // Send the gold to the gui
 private slots:
     void returnImage(const QPixmap &); // Send an image to be displayed
 private:
@@ -59,6 +59,7 @@ private:
     int textState; // Int to track text state
     QString playerName; // QString for the player name
     QString playerClass; // QString for the player class
+    bool playerMade; // Bool to say whether or not the player has been made
     QQueue<QString> userInput; // QQueue for the user input (in case we move to a game loop)
     void handleMainMenu(const QString &); // Function to handle the main menu
     void handleNewGameNaming(const QString &); // Function to handle the naming part of a new game

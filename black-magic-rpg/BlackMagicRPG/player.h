@@ -30,6 +30,8 @@ public:
     void setLuck(int value);
     int getGold() const;
     void setGold(int value);
+    void addGold(int value);
+    void removeGold(int value);
 private:
     int HP;
     int maxHP;

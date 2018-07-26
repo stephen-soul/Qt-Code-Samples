@@ -5,6 +5,7 @@ game::game(QObject *parent) : QObject(parent) {
     gameState = GAME_STATE_MAINMENU;
     textState = TEXT_STATE_NEWGAME_TEXT;
     playerName = "";
+    playerMade = false;
 }
 
 // Moving the destructor to default until we can include something to do during destructing
@@ -66,8 +67,8 @@ void game::advance() {
         break;
     }
     // Then update the variables for the gui
-    returnHealth(player.getHealth(), player.getMaxHP());
-    sendMagic(player.getMp(), player.);
+    if(playerMade) { returnHealth(newPlayer.getHP(), newPlayer.getMaxHP()); returnMagic(newPlayer.getMp(), newPlayer.getMaxMP()); }
+
 }
 
 // This slot handles appending to a console
@@ -81,21 +82,21 @@ void game::returnName(const QString &name) {
 }
 
 // This slot handles returning the current health
-void game::returnHealth(int &health, int &maxHealth) {
+void game::returnHealth(int health, int maxHealth) {
     QString currentHealth = QString::number(health);
     QString currentMaxHealth = QString::number(maxHealth);
     emit sendHealth("HP: " + currentHealth + "/" + currentMaxHealth);
 }
 
 // This slot handles returning the current MP
-void game::returnMagic(int &mp, int &maxMp) {
+void game::returnMagic(int mp, int maxMp) {
     QString currentMagic = QString::number(mp);
     QString currentMaxMagic = QString::number(maxMp);
     emit sendMagic("MP: " + currentMagic + "/" + currentMaxMagic);
 }
 
 // This slot handles returning the current gold
-void game::returnGold(int &gold) {
+void game::returnGold(int gold) {
     QString currentGold = QString::number(gold);
     emit sendGold(currentGold + "G");
 }
@@ -177,6 +178,7 @@ void game::handleConfirmingNameAndClass(const QString &input) {
             if(playerClass == "rogue")
                 newPlayer = *new player(80, 80, 60, 60, playerName, playerClass, 3, 10, 1, 5, 10, 0);
             // Now the player class is made
+            playerMade = true;
             gameState = GAME_STATE_CHAPTER1_PROCESS_ENTER;
             break;
         case 2: // If 2 (no) then go back
@@ -189,6 +191,7 @@ void game::handleConfirmingNameAndClass(const QString &input) {
             break;
         }
         // Afterwards return the input and advance the game state
+        newPlayer.addGold(100);
         returnInput(text.getGameText(textState));
     }
 }
@@ -196,5 +199,6 @@ void game::handleConfirmingNameAndClass(const QString &input) {
 void game::handleNewGamePart1() {
     // Clear the screen and move the events forward
     returnInput("clear");
+    returnGold(newPlayer.getGold());
     returnInput(text.getMap("blkrock-cen") + "\n" + text.getMap("blkrock-cen-desc"));
 }

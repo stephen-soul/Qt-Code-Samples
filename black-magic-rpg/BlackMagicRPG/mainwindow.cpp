@@ -84,7 +84,7 @@ void MainWindow::changeMagic(const QString &magic) {
 }
 
 void MainWindow::changeGold(const QString &gold) {
-    ui->healthLabel->setText(gold);
+    ui->goldLabel->setText(gold);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
