@@ -204,7 +204,7 @@ color: rgb(255, 255, 255);</string>
      <rect>
       <x>20</x>
       <y>5</y>
-      <width>131</width>
+      <width>100</width>
       <height>16</height>
      </rect>
     </property>
@@ -220,7 +220,7 @@ color: rgb(255, 255, 255);</string>
    <widget class="QLabel" name="healthLabel">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>130</x>
       <y>5</y>
       <width>80</width>
       <height>16</height>
@@ -238,7 +238,7 @@ color: rgb(255, 255, 255);</string>
    <widget class="QLabel" name="goldLabel">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>460</x>
       <y>5</y>
       <width>161</width>
       <height>16</height>
@@ -259,7 +259,7 @@ color: rgb(255, 255, 255);</string>
    <widget class="QLabel" name="magicLabel">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>220</x>
       <y>5</y>
       <width>80</width>
       <height>16</height>

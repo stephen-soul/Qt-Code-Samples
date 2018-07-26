@@ -10,5 +10,6 @@
         <file>text/map.xml</file>
         <file>font/PxPlus_IBM_MDA.ttf</file>
         <file>font/ShareTechMono-Regular.ttf</file>
+        <file>text/errors.inc</file>
     </qresource>
 </RCC>

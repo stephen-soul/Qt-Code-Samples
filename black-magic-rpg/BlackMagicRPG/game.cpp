@@ -123,13 +123,16 @@ void game::handleMainMenu(const QString &mainMenuInput) {
 
 // Function to handle naming your character
 void game::handleNewGameNaming(const QString &nameInput) {
-    playerName = nameInput;
-    sendName(playerName);
-    text.appendNameToGameText(playerName);
-    returnInput("\n" + text.getGameText(textState));
-    gameState = GAME_STATE_NEWGAME_GETCLASS;
-    textState = TEXT_STATE_NEWGAME_CLASS;
-    returnInput("\n" + text.getGameText(textState));
+    if(nameInput.length() <= 12) {
+        playerName = nameInput;
+        sendName(playerName);
+        text.appendNameToGameText(playerName);
+        returnInput("\n" + text.getGameText(textState));
+        gameState = GAME_STATE_NEWGAME_GETCLASS;
+        textState = TEXT_STATE_NEWGAME_CLASS;
+        returnInput("\n" + text.getGameText(textState));
+    } else
+        returnInput("Names too long! (12 Character Maximum)"); // TODO - Change this to an actual error in errors.inc
 }
 
 // Function to handle picking your class
