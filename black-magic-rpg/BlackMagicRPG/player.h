@@ -5,7 +5,7 @@
 class player {
 public:
     player();
-    player(int HP, int maxHP, int MP, int maxMP, QString name, QString role, int str, int dex, int magic, int defence, int luck);
+    player(int HP, int maxHP, int MP, int maxMP, QString name, QString role, int str, int dex, int magic, int defence, int luck, int gold);
     int getHP() const;
     void setHP(int value);
     int getMaxHP() const;
@@ -28,7 +28,8 @@ public:
     void setDefence(int value);
     int getLuck() const;
     void setLuck(int value);
-
+    int getGold() const;
+    void setGold(int value);
 private:
     int HP;
     int maxHP;
@@ -41,6 +42,7 @@ private:
     int magic;
     int defence;
     int luck;
+    int gold;
 };
 
 #endif // PLAYER_H

@@ -23,6 +23,10 @@ private slots:
     void on_input_returnPressed(); // This slot handles enter being pressed
     void appendToConsole(QString gameText); // This slot appends to console
     void changeImage(QPixmap image); // This slot changes the current image
+    void changeName(const QString &name); // This slot changes the name
+    void changeHealth(const QString &health); // This slot changes the health
+    void changeMagic(const QString &magic); // This slot changes the magic
+    void changeGold(const QString &gold); // This slot changes the gold
 private:
     bool startSelected; // Bool to handle main menu placement
     bool gameStarted; // Bool to handle checking for gui key press events

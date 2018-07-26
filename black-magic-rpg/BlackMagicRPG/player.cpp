@@ -4,7 +4,7 @@ player::player() {
 
 }
 
-player::player(int playerHP, int playerMaxHP, int playerMP, int playerMaxMP, QString playerName, QString playerRole, int playerStr, int playerDex, int playerMagic, int playerDefence, int playerLuck) {
+player::player(int playerHP, int playerMaxHP, int playerMP, int playerMaxMP, QString playerName, QString playerRole, int playerStr, int playerDex, int playerMagic, int playerDefence, int playerLuck, int playerGold) {
     HP = playerHP;
     maxHP = playerMaxHP;
     mp = playerMP;
@@ -16,6 +16,7 @@ player::player(int playerHP, int playerMaxHP, int playerMP, int playerMaxMP, QSt
     magic = playerMagic;
     defence = playerDefence;
     luck = playerLuck;
+    gold = playerGold;
 }
 
 int player::getHP() const
@@ -106,6 +107,16 @@ int player::getLuck() const
 void player::setLuck(int value)
 {
     luck = value;
+}
+
+int player::getGold() const
+{
+    return gold;
+}
+
+void player::setGold(int value)
+{
+    gold = value;
 }
 
 int player::getMp() const

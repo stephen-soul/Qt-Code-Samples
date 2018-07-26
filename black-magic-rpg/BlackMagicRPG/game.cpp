@@ -65,11 +65,39 @@ void game::advance() {
     default:
         break;
     }
+    // Then update the variables for the gui
+    returnHealth(player.getHealth(), player.getMaxHP());
+    sendMagic(player.getMp(), player.);
 }
 
 // This slot handles appending to a console
 void game::returnInput(const QString &newInput) {
     emit sendParsedInput(newInput);
+}
+
+// This slot handles returning the name
+void game::returnName(const QString &name) {
+    emit sendName(name);
+}
+
+// This slot handles returning the current health
+void game::returnHealth(int &health, int &maxHealth) {
+    QString currentHealth = QString::number(health);
+    QString currentMaxHealth = QString::number(maxHealth);
+    emit sendHealth("HP: " + currentHealth + "/" + currentMaxHealth);
+}
+
+// This slot handles returning the current MP
+void game::returnMagic(int &mp, int &maxMp) {
+    QString currentMagic = QString::number(mp);
+    QString currentMaxMagic = QString::number(maxMp);
+    emit sendMagic("MP: " + currentMagic + "/" + currentMaxMagic);
+}
+
+// This slot handles returning the current gold
+void game::returnGold(int &gold) {
+    QString currentGold = QString::number(gold);
+    emit sendGold(currentGold + "G");
 }
 
 // This slot handles sending an image to the ui
@@ -95,6 +123,7 @@ void game::handleMainMenu(const QString &mainMenuInput) {
 // Function to handle naming your character
 void game::handleNewGameNaming(const QString &nameInput) {
     playerName = nameInput;
+    sendName(playerName);
     text.appendNameToGameText(playerName);
     returnInput("\n" + text.getGameText(textState));
     gameState = GAME_STATE_NEWGAME_GETCLASS;
@@ -142,11 +171,11 @@ void game::handleConfirmingNameAndClass(const QString &input) {
         case 1: // If 1 (yes) then continue
             textState = TEXT_STATE_NEWGAME_CHAPTER1_INTRO;
             if(playerClass == "warrior")
-                newPlayer = *new player(100, 100, 60, 60, playerName, playerClass, 10, 3, 1, 6, 5);
+                newPlayer = *new player(100, 100, 60, 60, playerName, playerClass, 10, 3, 1, 6, 5, 0);
             if(playerClass == "mage")
-                newPlayer = *new player(60, 60, 100, 100, playerName, playerClass, 1, 3, 10, 3, 6);
+                newPlayer = *new player(60, 60, 100, 100, playerName, playerClass, 1, 3, 10, 3, 6, 0);
             if(playerClass == "rogue")
-                newPlayer = *new player(80, 80, 60, 60, playerName, playerClass, 3, 10, 1, 5, 10);
+                newPlayer = *new player(80, 80, 60, 60, playerName, playerClass, 3, 10, 1, 5, 10, 0);
             // Now the player class is made
             gameState = GAME_STATE_CHAPTER1_PROCESS_ENTER;
             break;

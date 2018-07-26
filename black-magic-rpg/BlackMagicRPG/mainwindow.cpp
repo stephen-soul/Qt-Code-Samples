@@ -15,6 +15,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(this, &MainWindow::sendInput, gameLogic, &game::acceptInput);
     connect(gameLogic, &game::sendParsedInput, this, &MainWindow::appendToConsole);
     connect(gameLogic, &game::sendImage, this, &MainWindow::changeImage);
+    connect(gameLogic, &game::sendName, this, &MainWindow::changeName);
+    connect(gameLogic, &game::sendHealth, this, &MainWindow::changeHealth);
+    connect(gameLogic, &game::sendMagic, this, &MainWindow::changeMagic);
+    connect(gameLogic, &game::sendGold, this, &MainWindow::changeGold);
     // Set the 'console' to hide on startup
     ui->consoleScreen->hide();
     ui->input->hide();
@@ -22,9 +26,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // Set the fonts to variables
     QFontDatabase::addApplicationFont(":/font/ShareTechMono-Regular.ttf");
     QFont gameFont = QFont("Share Tech Mono", 11, 1);
-    // Apply the font to the console and input
+    // Apply the font to the ui elements
     ui->consoleScreen->setFont(gameFont);
     ui->input->setFont(gameFont);
+    ui->nameLabel->setFont(gameFont);
+    ui->healthLabel->setFont(gameFont);
+    ui->magicLabel->setFont(gameFont);
+    ui->goldLabel->setFont(gameFont);
     ui->input->setEnabled(false);
     // Colour the 'start' to show that it's selected
     ui->startLabel->setStyleSheet("QLabel { color: yellow; font: 22pt 'Share Tech Mono'; }");
@@ -61,6 +69,22 @@ void MainWindow::appendToConsole(QString text) {
 
 void MainWindow::changeImage(QPixmap image) {
     ui->gameStatePic->setPixmap(image);
+}
+
+void MainWindow::changeName(const QString &name) {
+    ui->nameLabel->setText(name);
+}
+
+void MainWindow::changeHealth(const QString &health) {
+    ui->healthLabel->setText(health);
+}
+
+void MainWindow::changeMagic(const QString &magic) {
+    ui->magicLabel->setText(magic);
+}
+
+void MainWindow::changeGold(const QString &gold) {
+    ui->healthLabel->setText(gold);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {

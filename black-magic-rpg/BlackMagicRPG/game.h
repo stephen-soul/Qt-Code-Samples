@@ -37,10 +37,18 @@ public:
 signals:
     void sendParsedInput(const QString &); // Signal to send input
     void sendImage(const QPixmap &); // Signal to send image
+    void sendName(const QString &name); // Signal to send name variable
+    void sendHealth(const QString &health); // Signal to send health variable
+    void sendMagic(const QString &magic); // Signal to send the magic variable
+    void sendGold(const QString &gold); // Signal to send gold variable
 public slots:
-    void advance(); // Advance the timer
+    void advance(); // Advance the timer (Currently no timer is implemented. Still advances game on return pressed)
     void acceptInput(const QString &); // Get the input from the gui
     void returnInput(const QString &); // Send the input to the gui
+    void returnName(const QString &name); // Send the name to the gui
+    void returnHealth(int &health, int &maxHealth); // Send the health to the gui
+    void returnMagic(int &mp, int &maxMp); // Send the magic to the gui
+    void returnGold(int &gold); // Send the gold to the gui
 private slots:
     void returnImage(const QPixmap &); // Send an image to be displayed
 private:
